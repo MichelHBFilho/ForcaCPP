@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <map>
 #include <vector>
+#include <ctime>
 #include "forca.hpp"
 #include "informacoes.hpp"
 #include "color.hpp"
@@ -40,6 +41,7 @@ string escolhePalavra() {
     f >> numeroPalavras;  
 
     string palavra;
+    srand(time(NULL));
     int numeroAleatorio = rand() % numeroPalavras;
     for(int i = 0; i <= numeroAleatorio; i++) {
         f >> palavra;

@@ -84,6 +84,7 @@ void imprimeCabecalho() {
     cout << "'-..-| \\-.,___,  /    " << endl;
     cout << "    \\ `-.__/  /       " << endl;
     cout << "      `-.__.-'`       " << endl;
+    cout << endl << "--------------------------------------" << endl;
     cout << endl << endl;
 }
 
