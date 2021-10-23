@@ -38,6 +38,10 @@ string escolhePalavra() {
     int numeroPalavras;
     f.open("PALAVRAS.txt");
 
+    if(!f.is_open()) {
+        cout << "Não foi possivel abrir o banco de palavras" << endl;
+        exit(404);
+    }
     f >> numeroPalavras;  
 
     string palavra;
