@@ -78,6 +78,8 @@ int main() {
     } while (!enforcou() && !ganhou());
     system(LIMPA);
     imprimeCabecalho();
+    imprimeBoneco(erros);
+    imprimePalavra(PALAVRA_SECRETA, chutes);
     cout << "A palavra secreta era: " << PALAVRA_SECRETA << endl << endl;
     if(ganhou()) mensagemVitoria();
     else mensagemDerrota();
