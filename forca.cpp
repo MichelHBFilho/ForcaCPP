@@ -5,27 +5,14 @@
 #include <map>
 #include <vector>
 #include "forca.hpp"
+#include "informacoes.hpp"
+#include "color.hpp"
 
 using namespace std;
 
 const string PALAVRA_SECRETA = escolhePalavra();
 map<char, bool> chutes;
 vector<char> erros;
-
-void imprimeCabecalho() {
-    cout << "        .-'''-.       " << endl;
-    cout << "        /       \\    " << endl;
-    cout << "        \\       /    " << endl;
-    cout << ".-'''-.-`.-.-.<  _    " << endl;
-    cout << "/      _,-\\ ()()_/:) ";
-    cout << "  Jogo da forca"        << endl;
-    cout << "\\     / ,  `     `|   ";
-    cout << "  BY MICHEL FILHO"      << endl;
-    cout << "'-..-| \\-.,___,  /    " << endl;
-    cout << "    \\ `-.__/  /       " << endl;
-    cout << "      `-.__.-'`       " << endl;
-    cout << endl << endl;
-}
 
 bool comecaJogo() {
     cout << "Quer começar?? (S/N) ";
@@ -34,30 +21,33 @@ bool comecaJogo() {
     return (resposta == 'S' ? true : false);
 }
 
-bool acabou() {
+bool ganhou() {
+    for(char letra : PALAVRA_SECRETA) {
+        if(!chutes[letra]) return false;
+    } return true;
+}
+
+bool enforcou() {
+    if(erros.size() > 4) return true;
     return false;
 }
 
 string escolhePalavra() {
-    return "sofia";
-}
+    ifstream f;
+    int numeroPalavras;
+    f.open("PALAVRAS.txt");
 
-void imprimePalavra() {
-    for(char letra : PALAVRA_SECRETA) {
-        if(chutes[letra]) {
-            cout << letra;
-        } else {
-            cout << "_";
-        }
-        cout << " ";
-    } cout << endl;
-}
+    f >> numeroPalavras;  
 
-void imprimeErros() {
-    cout << "Chutes errados: ";
-    for(char erro : erros) {
-        cout << erro << ", ";
-    } cout << endl;
+    string palavra;
+    int numeroAleatorio = rand() % numeroPalavras;
+    for(int i = 0; i <= numeroAleatorio; i++) {
+        f >> palavra;
+    }
+
+    f.close();
+
+    return palavra;
 }
 
 void chuta() {
@@ -76,14 +66,17 @@ bool verificaChute(char chute) {
 }
 
 int main() {
-    system("clear");
+    system(LIMPA);
     imprimeCabecalho();
     if(!comecaJogo()) return 0;
     do {
-        system("clear");
-        imprimeCabecalho();
-        imprimePalavra();
-        imprimeErros();
+        system(LIMPA);
+        informacoes(erros, PALAVRA_SECRETA, chutes);
         chuta();
-    } while (!acabou());
+    } while (!enforcou() && !ganhou());
+    system(LIMPA);
+    imprimeCabecalho();
+    cout << "A palavra secreta era: " << PALAVRA_SECRETA << endl << endl;
+    if(ganhou()) mensagemVitoria();
+    else mensagemDerrota();
 }

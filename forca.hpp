@@ -1,13 +1,11 @@
 #ifndef _FORCA_HPP_
 #define _FORCA_HPP_
 #include <string>
-
-void imprimeCabecalho();
-bool comecaJogo();
-bool acabou();
+#define LIMPA "clear"
 std::string escolhePalavra();
-void imprimePalavra();
 void chuta();
 bool verificaChute(char chute);
+bool ganhou();
+bool enforcou();
 
 #endif
